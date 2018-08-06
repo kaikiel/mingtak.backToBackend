@@ -32,3 +32,12 @@ def back_to_cover(event):
     request = getRequest()
     portal = api.portal.get()
     request.response.redirect(portal.absolute_url())
+
+def move_to_top(item, event):
+    request = getRequest()
+    folder = item.getParentNode()
+    if not hasattr(folder, 'moveObjectsToTop'):
+        return
+    folder.moveObjectsToTop(item.id)
+    abs_url = folder.absolute_url()
+    request.response.redirect('%s/folder_contents' %abs_url)
